@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: Players Service
+  version: 1.0.0
+  description: An API for UGC Players Service
+paths:
+  /v1/players:
+    post:
+      summary: Create a player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlayerRequestDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/PlayerResponseDto'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+
+components:
+    schemas:
+        CreatePlayerRequestDto:
+          type: object
+          properties:
+            name:
+              type: string
+            avatarUrl:
+              type: string
+        PlayerResponseDto:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: The unique identifier for the player.
+            name:
+              type: string
+              description: The name of the player.
+            avatarUrl:
+              type: string
+              description: The URL for the player's avatar.
