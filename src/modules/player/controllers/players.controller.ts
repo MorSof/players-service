@@ -9,11 +9,7 @@ export class PlayersController {
   constructor(private playersService: PlayersService, private playersDtoConverter: PlayersDtoConverter) {}
 
   @Post('')
-  async create(
-    @Param('storeId') storeId: string,
-    @Param('widgetType') widgetType: string,
-    @Body() createPlayerRequestDto: CreatePlayerRequestDto,
-  ): Promise<PlayerResponseDto> {
+  async create(@Body() createPlayerRequestDto: CreatePlayerRequestDto): Promise<PlayerResponseDto> {
     let player: Player = this.playersDtoConverter.toModel(createPlayerRequestDto);
     player = await this.playersService.create(player);
     return this.playersDtoConverter.toDto(player);
