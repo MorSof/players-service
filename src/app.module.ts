@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PlayersModule } from './modules/player/modules/players.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlayerEntity } from './modules/player/entities/player.entity';
+import { PlayersModule } from './modules/player/players.module';
 
 @Module({
   imports: [

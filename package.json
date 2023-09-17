@@ -35,7 +35,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.11",
-    "@morsof/resources-service-api": "1.0.x"
+    "@morsof/resources-service-api": "1.0.x",
+    "@morsof/levels-service-api": "1.0.x"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

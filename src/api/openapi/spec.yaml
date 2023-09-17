@@ -3,6 +3,7 @@ info:
   title: Players Service
   version: 1.0.0
   description: An API for UGC Players Service
+
 paths:
   /v1/players:
     post:
@@ -18,31 +19,134 @@ paths:
           description: Created
           content:
             application/json:
-                schema:
-                  $ref: '#/components/schemas/PlayerResponseDto'
+              schema:
+                $ref: '#/components/schemas/PlayerResponseDto'
         '404':
           description: Not Found
         '500':
           description: Internal Server Error
 
+  /v1/players/{id}/levels/{levelOrder}/complete:
+    post:
+      tags:
+        - Players
+      summary: Mark a level as completed for a player
+      parameters:
+        - name: id
+          in: path
+          description: Player ID
+          required: true
+          schema:
+            type: string
+        - name: levelOrder
+          in: path
+          description: Order of the level to mark as completed
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Score and resources collected by the player
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LevelCompleteRequestDto'
+      responses:
+        '200':
+          description: Level successfully marked as completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelCompleteResponseDto'
+        '400':
+          description: Bad Request
+        '404':
+          description: Player or Level not found
+        '500':
+          description: Internal Server Error
+
 components:
-    schemas:
-        CreatePlayerRequestDto:
+  schemas:
+    CreatePlayerRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+        avatarUrl:
+          type: string
+    PlayerResponseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for the player.
+        name:
+          type: string
+          description: The name of the player.
+        avatarUrl:
+          type: string
+          description: The URL for the player's avatar.
+    LevelCompleteRequestDto:
+      type: object
+      properties:
+        score:
+          type: integer
+          description: Player's score for the level
+          example: 3
+        resourcesCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRequestDto'
+    LevelCompleteResponseDto:
+      type: object
+      properties:
+        score:
+          type: integer
+          description: Player's score for the level
+          example: 3
+        resourcesCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceResponseDto'
+    ResourceRequestDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of the resource'
+          default: 'wrapper'
+        name:
+          type: string
+          description: 'The name of the resource'
+          default: 'chest'
+        amount:
+          type: number
+          nullable: true
+          default: null
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceRequestDto'
+          description: 'An array of resources in the resource'
+          nullable: true
+        extraArgs:
           type: object
-          properties:
-            name:
-              type: string
-            avatarUrl:
-              type: string
-        PlayerResponseDto:
+          additionalProperties: true
+          nullable: true
+    ResourceResponseDto:
+      type: object
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+        name:
+          type: string
+        amount:
+          type: number
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceResponseDto'
+        extraArgs:
           type: object
-          properties:
-            id:
-              type: integer
-              description: The unique identifier for the player.
-            name:
-              type: string
-              description: The name of the player.
-            avatarUrl:
-              type: string
-              description: The URL for the player's avatar.
