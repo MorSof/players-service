@@ -97,6 +97,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResourceRequestDto'
+          example:
+            - amount: 1
+              type: wrapper
+              name: chest
+              resources:
+                - amount: 50
+                  type: currency
+                  name: coins
+            - id: 1
+              amount: 100
     LevelCompleteResponseDto:
       type: object
       properties:
@@ -111,18 +121,22 @@ components:
     ResourceRequestDto:
       type: object
       properties:
+        id:
+          type: number
+          nullable: true
+          default: null
+        amount:
+          type: number
         type:
           type: string
           description: 'The type of the resource'
+          nullable: true
           default: 'wrapper'
         name:
           type: string
           description: 'The name of the resource'
-          default: 'chest'
-        amount:
-          type: number
           nullable: true
-          default: null
+          default: 'chest'
         resources:
           type: array
           items:

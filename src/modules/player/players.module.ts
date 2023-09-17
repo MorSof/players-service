@@ -6,11 +6,12 @@ import { PlayerEntity } from './entities/player.entity';
 import { PlayersEntityConverter } from './services/players-entity.converter';
 import { PlayersDtoConverter } from './services/players-dto.converter';
 import { LevelsOwnersProgressionModule } from '../levels/levels-owners-progression.module';
+import { ResourceModule } from '../resources/resource.module';
 
 @Module({
   controllers: [PlayersController],
   providers: [PlayersService, PlayersDtoConverter, PlayersEntityConverter],
-  imports: [TypeOrmModule.forFeature([PlayerEntity]), LevelsOwnersProgressionModule],
+  imports: [TypeOrmModule.forFeature([PlayerEntity]), LevelsOwnersProgressionModule, ResourceModule],
   exports: [PlayersService],
 })
 export class PlayersModule {}

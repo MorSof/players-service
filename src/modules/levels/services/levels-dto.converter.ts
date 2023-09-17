@@ -11,9 +11,7 @@ export class LevelsDtoConverter {
         levelOrder,
         score: dto.score,
       },
-      resourcesCollected: {
-        resources: dto.resourcesCollected,
-      },
+      resourcesCollected: dto.resourcesCollected,
     };
   }
 

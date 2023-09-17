@@ -12,6 +12,17 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Go to the resources-service-api and install & build it
+WORKDIR /app/node_modules/@morsof/resources-service-api
+RUN npm install && npm run build
+
+# Go to the levels-service-api and install & build it
+WORKDIR /app/node_modules/@morsof/levels-service-api
+RUN npm install && npm run build
+
+# Go back to the main app directory
+WORKDIR /app
+
 # Install openapi-generator-cli globally
 RUN npm install @openapitools/openapi-generator-cli -g
 
