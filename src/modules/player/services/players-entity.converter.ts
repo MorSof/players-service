@@ -5,18 +5,17 @@ import { PlayerEntity } from '../entities/player.entity';
 @Injectable()
 export class PlayersEntityConverter {
   public toModel(entity: PlayerEntity): Player {
-    const { id, name, avatarUrl } = entity;
+    const { id, name } = entity;
     const model: Player = new Player({
       id,
       name,
-      avatarUrl,
     });
     return model;
   }
 
   public toEntity(model: Player): PlayerEntity {
-    const { name, avatarUrl } = model;
-    const entity: PlayerEntity = new PlayerEntity({ name, avatarUrl });
+    const { name } = model;
+    const entity: PlayerEntity = new PlayerEntity({ name });
     return entity;
   }
 }

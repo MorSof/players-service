@@ -13,11 +13,10 @@ export class PlayerEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
-
-  @Column()
-  avatarUrl: string;
+  @Column({
+    nullable: true,
+  })
+  name?: string;
 
   @CreateDateColumn()
   createdAt: Date;

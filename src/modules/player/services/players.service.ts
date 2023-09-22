@@ -20,4 +20,21 @@ export class PlayersService {
 
     return this.playersEntityConverter.toModel(entity);
   }
+
+  async login(playerId?: number): Promise<Player> {
+    // if no playerId is provided, create a new player
+    if (!playerId) {
+      return this.create(new Player({}));
+    }
+
+    // if playerId is provided, try to find the player
+    const entity = await this.playerRepository.findOneBy({ id: playerId });
+    if (!entity) {
+      // if no player is found, create a new player
+      return this.create(new Player({}));
+    }
+
+    // if a player is found, return it
+    return this.playersEntityConverter.toModel(entity);
+  }
 }

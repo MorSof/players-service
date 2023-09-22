@@ -26,6 +26,25 @@ paths:
         '500':
           description: Internal Server Error
 
+  /v1/players/login:
+    post:
+      summary: Retrieve an existing player using ID or create a new anonymous player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnonymousLoginRequestDto'
+      responses:
+        '200':
+          description: Successfully retrieved or created a player
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerResponseDto'
+        '500':
+          description: Internal Server Error
+
   /v1/players/{id}/levels/{levelOrder}/complete:
     post:
       tags:
@@ -67,12 +86,17 @@ paths:
 
 components:
   schemas:
+    AnonymousLoginRequestDto:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          description: The ID of the player for anonymous login. If not provided, a new player will be created.
+          nullable: true
     CreatePlayerRequestDto:
       type: object
       properties:
         name:
-          type: string
-        avatarUrl:
           type: string
     PlayerResponseDto:
       type: object
@@ -83,9 +107,6 @@ components:
         name:
           type: string
           description: The name of the player.
-        avatarUrl:
-          type: string
-          description: The URL for the player's avatar.
     LevelCompleteRequestDto:
       type: object
       properties:
